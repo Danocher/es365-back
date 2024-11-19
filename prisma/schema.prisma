@@ -17,7 +17,7 @@ model User{
   name String
   mail String @unique
   password String
-  phonenum BigInt
+  phonenum Int
   company String
   inn String?
   bik String?
@@ -29,7 +29,7 @@ model User{
 model Manager{
   id String @id @default(uuid())
   name String
-  phonenum BigInt
+  phonenum Int
   hour_cost Int
   user_id String
   user  User @relation(fields: [user_id], references: [id])
@@ -39,8 +39,8 @@ model Manager{
 model Client{
   id String @id @default(uuid())
   fullname String
-  phonenum BigInt
-  bonuses Int
+  phonenum Int
+  bonuses Int?
   user_id String
   user  User @relation(fields: [user_id], references: [id])
   order Order[]
