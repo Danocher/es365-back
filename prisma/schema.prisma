@@ -25,6 +25,8 @@ model User{
   manager Manager[]
   client Client[]
   product Product[]
+  order Order[]
+  shift Shift[]
 }
 model Manager{
   id String @id @default(uuid())
@@ -65,10 +67,17 @@ model Order{
   date DateTime
   shift Shift @relation(fields: [shift_id], references: [id])
   shift_id String
+  user_id String
+  user  User @relation(fields: [user_id], references: [id])
+
 }
 model Shift{
   id String @id @default(uuid())
   order Order[]
+  date_start DateTime @default(now())
+  date_end DateTime? 
   manager Manager @relation(fields: [manager_id], references: [id])
   manager_id String
+  user_id String
+  user  User @relation(fields: [user_id], references: [id])
 }

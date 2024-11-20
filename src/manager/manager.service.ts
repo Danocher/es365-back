@@ -11,4 +11,22 @@ export class ManagerService {
             }
         })
     }
+    async addManager(user_id:string, name:string, phonenum:number, hour_cost:number, ){
+        return await this.prisma.manager.create({
+            data:{
+                name,
+                phonenum,
+                hour_cost,
+                user_id
+            }
+        })
+    }
+    async getOne(user_id:string, id:string){
+        return await this.prisma.manager.findUnique({
+            where:{
+                id,
+                user_id
+            }
+        })
+    }
 }
