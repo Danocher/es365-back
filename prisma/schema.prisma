@@ -55,16 +55,17 @@ model Product{
   buy_date DateTime
   user_id String
   user  User @relation(fields: [user_id], references: [id])
-  order Order[]
+  order Order[] //@relation("orderToProducts")
 }
 model Order{
   id String @id @default(uuid())
   manager_id String 
+  sum Int 
   manager Manager @relation(fields: [manager_id], references: [id])
   client_id String
   client Client @relation(fields: [client_id], references: [id])
-  products Product[]
-  date DateTime
+  products Product[] //@relation("orderToProducts")
+  date DateTime @default(now())
   shift Shift @relation(fields: [shift_id], references: [id])
   shift_id String
   user_id String

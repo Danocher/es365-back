@@ -6,9 +6,10 @@ import { UserModule } from './user/user.module';
 import { ClientModule } from './client/client.module';
 import { ManagerModule } from './manager/manager.module';
 import { ShiftModule } from './shift/shift.module';
+import { OrderModule } from './order/order.module';
 import * as cookieParser from 'cookie-parser'
 @Module({
-  imports: [AuthModule, UserModule, ClientModule, ManagerModule, ShiftModule],
+  imports: [AuthModule, UserModule, ClientModule, ManagerModule, ShiftModule, OrderModule],
   controllers: [AppController],
   providers: [AppService],
 })
