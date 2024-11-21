@@ -1,18 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { Response } from 'express';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ShiftService {
     constructor(private prisma:PrismaService){}
     async open(manager: string, user_id:string){
-        return await this.prisma.shift.create({
-            data:{
+        const shift = await this.prisma.shift.findMany({
+            where:{
                 manager_id:manager,
                 user_id,
+                date_end:null
             }
         })
+        if(shift.length>0){
+            throw new BadRequestException('У вас есть неоконченная смена')
+        }
+        else{
+            return await this.prisma.shift.create({
+                data:{
+                    manager_id:manager,
+                    user_id,
+                }
+        })}
     }
-    async close(id:string, user_id:string){
+    async close(id:string, user_id:string, res: Response){
         const shift =  await this.prisma.shift.update({
             where:{
                 id,
@@ -22,6 +34,8 @@ export class ShiftService {
                 date_end: new Date()
             }
         })
+        
+        
         return {shift:shift, time: subtractDates(shift.date_end,shift.date_start)}
     }
     async isOpen(id:string, user_id:string){

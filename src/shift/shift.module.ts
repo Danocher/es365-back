@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ShiftService } from './shift.service';
 import { ShiftController } from './shift.controller';
 import { PrismaService } from 'src/prisma.service';
@@ -7,4 +7,6 @@ import { PrismaService } from 'src/prisma.service';
   controllers: [ShiftController],
   providers: [ShiftService, PrismaService],
 })
-export class ShiftModule {}
+export class ShiftModule {
+  
+}

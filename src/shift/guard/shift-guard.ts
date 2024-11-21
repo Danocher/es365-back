@@ -1,29 +1,28 @@
-// import { Injectable, CanActivate, ExecutionContext, BadRequestException } from '@nestjs/common';
-// import { PrismaService } from 'src/prisma.service';
-// // import { PrismaService } from './prisma.service'; // Предполагая, что у вас есть PrismaService
+import { Injectable, CanActivate, ExecutionContext, BadRequestException, Request } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
+import { Iuser } from 'src/types/types';
 
-// @Injectable()
-// export class IsOpenGuard implements CanActivate {
-//     constructor(private readonly prisma: PrismaService) {} // Инъекция сервиса Prisma
+@Injectable()
+export class IsOpenGuard implements CanActivate {
+    constructor(private readonly prisma: PrismaService) {} 
 
-//     async canActivate(context: ExecutionContext): Promise<boolean> {
-//         const request = context.switchToHttp().getRequest<Request>();
-//         const user_id = request.headers.get('Authorization');
-//         // const id = params.id as string; // Извлекаем id из параметров маршрута
-//         // const user_id = params.user_id as string; // Извлекаем user_id из параметров маршрута
+    async canActivate(context: ExecutionContext): Promise<boolean> {
+        const request = context.switchToHttp().getRequest();
+        const id = request.cookies['shift']
+        const user_id = request.user.id
+        
 
-//         const shift = await this.prisma.shift.findUnique({
-//             where: {
-//                 id,
-//                 user_id,
-//                 date_end: null,
-//             },
-//         });
-
-//         if (shift) {
-//             return true;
-//         } else {
-//             throw new BadRequestException('Смена закрыта или не найдена');
-//         }
-//     }
-// }
+        const shift = await this.prisma.shift.findUnique({
+            where: {
+                id,
+                user_id,
+                date_end: null,
+            },
+        });
+        if (shift) {
+            return true;
+        } else {
+            throw new BadRequestException('Смена закрыта или не найдена');
+        }
+    }
+}
