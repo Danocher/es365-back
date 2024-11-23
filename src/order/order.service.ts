@@ -58,4 +58,80 @@ export class OrderService {
             
         })
     }
+    async findOrderByInterval(user_id:string, start:Date, end:Date){
+        return await this.prisma.order.findMany({
+            where:{
+                user_id,
+                date:{
+                    gte: start,
+                    lte: end
+                }
+            }
+        })
+    }
+    async findManagerOrdersByInterval(user_id:string, start:Date, end:Date, manager_id:string){
+        return await this.prisma.order.findMany({
+            where:{
+                user_id,
+                manager_id,
+                date:{
+                    gte: start,
+                    lte: end
+                }
+            }
+        })
+    }
+    async findClientOrdersByInterval(user_id:string, start:Date, end:Date, client_id:string){
+        return await this.prisma.order.findMany({
+            where:{
+                user_id,
+                client_id,
+                date:{
+                    gte: start,
+                    lte: end
+                }
+            }
+        })
+    }
+    async findMonthlySell(user_id:string){
+        const now = new Date()
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+        return await this.prisma.order.findMany({
+            where:{
+                user_id,
+                date:{
+                    gte: startOfMonth,
+                    lte: endOfMonth
+                }    
+            },
+            include:{
+                products:true
+            }
+        })
+    }
+    async findMonthlyProfit(user_id:string){
+        const now = new Date()
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+        const orders  = await this.prisma.order.findMany({
+            where:{
+                user_id,
+                date:{
+                    gte: startOfMonth,
+                    lte: endOfMonth
+                }    
+            },
+            include:{
+                products:true
+            }
+        })
+        let profit = 0
+        for(let i =0;i<orders.length;i++){
+            for(let k=0;k<orders[i].products.length;k++){
+                profit += orders[i].products[k].sell - orders[i].products[k].buy
+            }
+        }
+        return profit
+    }
 }   
