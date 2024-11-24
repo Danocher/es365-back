@@ -66,6 +66,9 @@ export class OrderService {
                     gte: start,
                     lte: end
                 }
+            },
+            include:{
+                products:true
             }
         })
     }
@@ -78,6 +81,9 @@ export class OrderService {
                     gte: start,
                     lte: end
                 }
+            },
+            include:{
+                products:true
             }
         })
     }
@@ -90,6 +96,9 @@ export class OrderService {
                     gte: start,
                     lte: end
                 }
+            },
+            include:{
+                products:true
             }
         })
     }
