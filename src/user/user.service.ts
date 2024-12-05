@@ -11,7 +11,7 @@ export class UserService {
             }
         })
     }
-    async createUser(mail: string, name: string, password: string, phonenum: number, company: string){
+    async createUser(mail: string, name: string, password: string, phonenum: number, company: string, inn:string, bik:string, ogrn:string){ 
         const salt = await genSalt(10)
         const hashed = await hash(password, salt)
         return await this.prisma.user.create({
@@ -21,6 +21,9 @@ export class UserService {
                 password:hashed,
                 phonenum,
                 company,
+                inn,
+                bik,
+                ogrn,
             }
         })
     }

@@ -4,4 +4,7 @@ export class RegDto{
     name: string;
     phonenum:number;
     company:string;
+    inn:string | null
+    bik: string | null;
+    ogrn: string | null;
 }
