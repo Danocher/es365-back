@@ -3,7 +3,7 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+// DATABASE_URL=postgres://neondb_owner:nG2M4yhWDXsz@ep-wandering-voice-a2ccjahr-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require'
 generator client {
   provider = "prisma-client-js"
 }
