@@ -11,7 +11,7 @@ export class ClientService {
             }
         })
     }
-    async createClient(fullname:string, phonenum:number, id:string){
+    async createClient(fullname:string, phonenum:string, id:string){
         return await this.prismaService.client.create({
             data:{
                 fullname,

@@ -1,6 +1,6 @@
 export class clientDto{
     fullname:string;
-    phonenum:number;
+    phonenum:string;
 }
 export class clientOne{
     id:string

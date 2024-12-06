@@ -1,5 +1,5 @@
 export class ManagerDto{
     name:string;
-    phonenum:number;
+    phonenum:string;
     hour_cost:number;
 }

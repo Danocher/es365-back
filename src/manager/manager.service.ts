@@ -11,7 +11,7 @@ export class ManagerService {
             }
         })
     }
-    async addManager(user_id:string, name:string, phonenum:number, hour_cost:number, ){
+    async addManager(user_id:string, name:string, phonenum:string, hour_cost:number, ){
         return await this.prisma.manager.create({
             data:{
                 name,
