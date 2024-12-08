@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-// DATABASE_URL=postgres://neondb_owner:nG2M4yhWDXsz@ep-wandering-voice-a2ccjahr-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require'
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,73 +6,78 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model User{
-  id String @id @default(uuid())
-  name String
-  mail String @unique
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  mail     String    @unique
   password String
   phonenum String
-  company String
-  inn String?
-  bik String?
-  ogrn String?
-  manager Manager[]
-  client Client[]
-  product Product[]
-  order Order[]
-  shift Shift[]
+  company  String
+  inn      String?
+  bik      String?
+  ogrn     String?
+  client   Client[]
+  manager  Manager[]
+  order    Order[]
+  product  Product[]
+  shift    Shift[]
 }
-model Manager{
-  id String @id @default(uuid())
-  name String
-  phonenum String
+
+model Manager {
+  id        String  @id @default(uuid())
+  name      String
+  phonenum  String
   hour_cost Int
-  user_id String
-  user  User @relation(fields: [user_id], references: [id])
-  order Order[]
-  shift Shift[]
+  user_id   String
+  user      User    @relation(fields: [user_id], references: [id])
+  order     Order[]
+  shift     Shift[]
 }
-model Client{
-  id String @id @default(uuid())
+
+model Client {
+  id       String  @id @default(uuid())
   fullname String
   phonenum String
-  bonuses Int?
-  user_id String
-  user  User @relation(fields: [user_id], references: [id])
-  order Order[]
+  bonuses  Int?
+  user_id  String
+  user     User    @relation(fields: [user_id], references: [id])
+  order    Order[]
 }
-model Product{
-  id String @id @default(uuid())
-  name String
-  buy Int
-  sell Int
-  buy_date DateTime
-  user_id String
-  user  User @relation(fields: [user_id], references: [id])
-  order Order[] //@relation("orderToProducts")
-}
-model Order{
-  id String @id @default(uuid())
-  manager_id String 
-  sum Int 
-  manager Manager @relation(fields: [manager_id], references: [id])
-  client_id String
-  client Client @relation(fields: [client_id], references: [id])
-  products Product[] //@relation("orderToProducts")
-  date DateTime @default(now())
-  shift Shift @relation(fields: [shift_id], references: [id])
-  shift_id String
-  user_id String
-  user  User @relation(fields: [user_id], references: [id])
 
+model Product {
+  id       String   @id @default(uuid())
+  name     String
+  buy      Int
+  sell     Int
+  buy_date DateTime
+  user_id  String
+  user     User     @relation(fields: [user_id], references: [id])
+  order    Order[]  @relation("OrderToProduct")
 }
-model Shift{
-  id String @id @default(uuid())
-  order Order[]
-  date_start DateTime @default(now())
-  date_end DateTime? 
-  manager Manager @relation(fields: [manager_id], references: [id])
+
+model Order {
+  id         String    @id @default(uuid())
   manager_id String
-  user_id String
-  user  User @relation(fields: [user_id], references: [id])
+  sum        Int
+  client_id  String
+  date       DateTime  @default(now())
+  shift_id   String
+  user_id    String
+  client     Client    @relation(fields: [client_id], references: [id])
+  manager    Manager   @relation(fields: [manager_id], references: [id])
+  shift      Shift     @relation(fields: [shift_id], references: [id])
+  user       User      @relation(fields: [user_id], references: [id])
+  products   Product[] @relation("OrderToProduct")
+}
+
+model Shift {
+  id         String    @id @default(uuid())
+  date_start DateTime  @default(now())
+  date_end   DateTime?
+  manager_id String
+  user_id    String
+  order      Order[]
+  manager    Manager   @relation(fields: [manager_id], references: [id])
+  user       User      @relation(fields: [user_id], references: [id])
 }
