@@ -17,4 +17,10 @@ export class StatisticController {
     const sum = await this.statisticService.getActiveManagers(req.user.id)
     return sum._count
   }
+  @Get('/product-count')
+  @UseGuards(JwtAuthGuard)
+  async getProductCount(@Req() req){
+    const sum = await this.statisticService.getProductCount(req.user.id)
+    return sum._count
+  }
 }

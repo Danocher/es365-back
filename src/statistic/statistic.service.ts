@@ -27,4 +27,14 @@ export class StatisticService {
                 manager_id: true
         }})
     }   
+    async getProductCount(id:string){
+        return await this.prisma.product.aggregate({
+            where:{
+                user_id:id
+            },
+            _count: {
+                id: true
+            }
+        })
+    }
 }

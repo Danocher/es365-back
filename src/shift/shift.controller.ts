@@ -29,6 +29,10 @@ export class ShiftController {
     const shiftData =await this.shiftService.close(req.cookies['shift'], req.user.id, res)
     return res.send(shiftData)
   }
+  @Get('list')
+  @UseGuards(JwtAuthGuard)
+  async getShifts(@Req() req){
+    return await this.shiftService.getShifts(req.user.id) 
   }
-  
+}
 

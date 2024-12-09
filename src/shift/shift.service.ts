@@ -5,6 +5,16 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class ShiftService {
     constructor(private prisma:PrismaService){}
+    async getShifts(user_id:string){
+        return await this.prisma.shift.findMany({
+            where:{
+                user_id
+            },
+            include:{
+                order:true
+            }
+        })
+    }
     async open(manager: string, user_id:string){
         const shift = await this.prisma.shift.findMany({
             where:{
