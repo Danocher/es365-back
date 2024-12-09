@@ -5,13 +5,30 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class ShiftService {
     constructor(private prisma:PrismaService){}
+    async getShiftById(user_id:string, shift_id:string){
+        return await this.prisma.shift.findUnique({
+            where:{
+                user_id,
+                id:shift_id
+            },
+            include:{
+                order:{
+                    include:{
+                        products:true
+                    }
+                },
+                manager:true
+            }
+        })
+    }
     async getShifts(user_id:string){
         return await this.prisma.shift.findMany({
             where:{
                 user_id
             },
             include:{
-                order:true
+                order:true,
+                manager:true
             }
         })
     }
