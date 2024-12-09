@@ -51,11 +51,20 @@ export class ShiftService {
                 }
         })}
     }
-    async close(id:string, user_id:string, res: Response){
+    async close(id:string, user_id:string){
         const shift =  await this.prisma.shift.update({
             where:{
                 id,
                 user_id
+            },
+            select:{
+                date_start:true,
+                date_end:true,
+                manager:{
+                    select:{
+                        name:true
+                    }
+                }
             },
             data:{
                 date_end: new Date()

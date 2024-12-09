@@ -27,7 +27,7 @@ export class ShiftController {
   @UseGuards(JwtAuthGuard, IsOpenGuard)
   async shiftClose(@Req() req, @Res() res: Response){
     res.clearCookie('shift')  
-    const shiftData =await this.shiftService.close(req.cookies['shift'], req.user.id, res)
+    const shiftData =await this.shiftService.close(req.cookies['shift'], req.user.id)
     return res.send(shiftData)
   }
   @Get('list')
