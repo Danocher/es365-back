@@ -89,6 +89,25 @@ export class ShiftService {
         return false
        }
     }
+    async getShiftsByManager(manager_id:string, user_id:string){
+        const shift = await this.prisma.shift.findMany({
+            where:{
+                manager_id,
+                user_id,
+                date_end: null
+            },
+            include:{
+                order:true,
+                manager:true
+            }
+        })
+        if (shift.length === 0) {
+            throw new BadRequestException('Открытых смен нет');
+        }
+        else{
+            return {shift:'Смена найдена успешно продолжайте работу', fullShift:shift}
+        }
+    }
 }
 function subtractDates(date1, date2) {
     // Преобразование обеих дат в миллисекунды
