@@ -23,4 +23,10 @@ export class StatisticController {
     const sum = await this.statisticService.getProductCount(req.user.id)
     return sum._count
   }
+  @Get('/monthly-manager-sell')
+  @UseGuards(JwtAuthGuard)
+  async getMonthlyManagerSell(@Req() req){
+    const sum = await this.statisticService.getMonthlyManagerSell(req.user.id)
+    return sum
+  }
 }
