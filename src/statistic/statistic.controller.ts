@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { StatisticService } from './statistic.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
@@ -27,6 +27,18 @@ export class StatisticController {
   @UseGuards(JwtAuthGuard)
   async getMonthlyManagerSell(@Req() req){
     const sum = await this.statisticService.getMonthlyManagerSell(req.user.id)
+    return sum
+  }
+  @Get('/monthly-selected-manager-sell')
+  @UseGuards(JwtAuthGuard)
+  async getMonthlySelectedManagerSell(@Req() req, @Query('month') month: string){
+    const sum = await this.statisticService.getMonthlySelectedManagerSell(req.user.id, Number(month))
+    return sum
+  }
+  @Get('/manager-stats-by-date-range')
+  @UseGuards(JwtAuthGuard)
+  async getManagerStatsByDateRange(@Req() req, @Query('startDate') startDate: string, @Query('endDate') endDate: string){
+    const sum = await this.statisticService.getManagerStatsByDateRange(req.user.id, new Date(startDate), new Date(endDate))
     return sum
   }
 }

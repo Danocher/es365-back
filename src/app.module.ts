@@ -8,9 +8,10 @@ import { ManagerModule } from './manager/manager.module';
 import { ShiftModule } from './shift/shift.module';
 import { OrderModule } from './order/order.module';
 import { StatisticModule } from './statistic/statistic.module';
+import { ProductsModule } from './products/products.module';
 import * as cookieParser from 'cookie-parser'
 @Module({
-  imports: [AuthModule, UserModule, ClientModule, ManagerModule, ShiftModule, OrderModule, StatisticModule],
+  imports: [AuthModule, UserModule, ClientModule, ManagerModule, ShiftModule, OrderModule, StatisticModule, ProductsModule],
   controllers: [AppController],
   providers: [AppService],
 })

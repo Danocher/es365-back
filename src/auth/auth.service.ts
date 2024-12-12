@@ -25,6 +25,14 @@ export class AuthService {
         return {
           user: userData,
           token: this.jwtService.sign({id: user.id, email: user.email}),
+          refreshToken: this.jwtService.sign({id: user.id, email: user.email}, {expiresIn: '1d'})
         };
       }
+      async getNewTokens(refreshToken: string) {
+        const userData = await this.jwtService.verify(refreshToken);
+        return {
+          token: this.jwtService.sign({id: userData.id, email: userData.email}),
+          refreshToken: this.jwtService.sign({id: userData.id, email: userData.email}, {expiresIn: '1d'})
+        };
+    }
 }
