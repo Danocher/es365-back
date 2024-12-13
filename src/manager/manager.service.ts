@@ -29,4 +29,25 @@ export class ManagerService {
             }
         })
     }
+    async deleteManager(user_id:string, id:string){
+        return await this.prisma.manager.delete({
+            where:{
+                id,
+                user_id
+            }
+        })
+    }
+    async updateManager(user_id:string, id:string, name:string, phonenum:string, hour_cost:number){
+        return await this.prisma.manager.update({
+            where:{
+                id,
+                user_id
+            },
+            data:{
+                name,
+                phonenum,
+                hour_cost
+            }
+        })
+    }
 }

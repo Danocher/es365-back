@@ -15,12 +15,19 @@ export class OrderController {
   @Post('create')
   @UseGuards(JwtAuthGuard, IsOpenGuard)
   async createOrders(@Request() req, @Body() dto:OrderDto){
-    return await this.orderService.createOrders(req.user_id, dto, req.cookies['shift'])
+    const id = req.user.id  
+    const shift = req.cookies['shift']
+    return await this.orderService.createOrders(id, dto, shift)
   }
   @Get('client')
   @UseGuards(JwtAuthGuard)
   async getClientOrders(@Request() req, @Query('client_id') client_id:string){
     return await this.orderService.getClientOrders(client_id, req.user.id)
+  }
+  @Get('order-by-id')
+  @UseGuards(JwtAuthGuard)
+  async getOrdersById(@Request() req, @Query('order_id') order_id:string){
+    return await this.orderService.getOrdersById(order_id, req.user.id)
   }
   @Get('manager')
   @UseGuards(JwtAuthGuard)

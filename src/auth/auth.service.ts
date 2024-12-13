@@ -32,7 +32,7 @@ export class AuthService {
         const userData = await this.jwtService.verify(refreshToken);
         return {
           token: this.jwtService.sign({id: userData.id, email: userData.email}),
-          refreshToken: this.jwtService.sign({id: userData.id, email: userData.email}, {expiresIn: '1d'})
+          // refreshToken: this.jwtService.sign({id: userData.id, email: userData.email}, {expiresIn: '1d'})
         };
     }
 }

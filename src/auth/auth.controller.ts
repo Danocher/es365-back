@@ -22,7 +22,7 @@ export class AuthController {
           throw new UnauthorizedException("Refresh not passed")
       }
       const tokens = await this.authService.getNewTokens(refreshTokenFromCookies);
-      res.cookie('refreshToken', tokens.refreshToken, { secure: false, httpOnly: true });
+      // res.cookie('refreshToken', tokens.refreshToken, { secure: false, httpOnly: true });
       return res.send({token: tokens.token});
   }
 

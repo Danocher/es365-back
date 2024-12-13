@@ -11,6 +11,21 @@ export class OrderService {
                 user_id
             },
             include:{
+                manager:true,
+                client:true,
+                products:true
+            }
+        })
+    }
+    async getOrdersById(order_id:string, user_id:string){
+        return await this.prisma.order.findUnique({
+            where:{
+                id:order_id,
+                user_id
+            },
+            include:{
+                manager:true,
+                client:true,
                 products:true
             }
         })
