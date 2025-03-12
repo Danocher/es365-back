@@ -6,7 +6,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors({
     //Add your origins here
-    origin: ['http://localhost:3001', 'https://es365-frontend.vercel.app'],
+    origin: ['http://localhost:3000', 'https://es365-frontend.vercel.app'],
     credentials: true,
     exposedHeaders: `set-cookie`
 
