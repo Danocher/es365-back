@@ -10,7 +10,7 @@ jobs:
     env:
       IMAGE_NAME: es365-backend
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - name: Add package repository
         uses: actions/setup-node@v4
       - name: Build and push Docker image
