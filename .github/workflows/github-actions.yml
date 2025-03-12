@@ -6,7 +6,7 @@ on:
     branches: [ "master" ]
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: es365
     env:
       IMAGE_NAME: es365-backend
     steps:
@@ -20,7 +20,7 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
   deploy:
-    runs-on: self-hosted
+    runs-on: es365
     needs: build
     env:
       IMAGE_NAME: es365-backend
