@@ -31,6 +31,7 @@ WORKDIR /app
 COPY --from=builder /app/package.json /app/package-lock.json /app/nest-cli.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/prisma ./prisma
 
 RUN ls
 RUN ["npm", "ci", "--only=prod"]
