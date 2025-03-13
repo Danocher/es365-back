@@ -15,6 +15,7 @@ COPY . /app
 EXPOSE 80
 
 RUN ["npm", "i"]
+RUN ["npm", "install", "--save", "@nestjs/cli"]
 RUN ["npm", "run", "build"]
 
 FROM node:22.14.0
