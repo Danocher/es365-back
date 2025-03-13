@@ -6,8 +6,8 @@ jobs:
   build:
     runs-on: self-hosted
     env:
-      REGISTRY: ghcr.io
-      IMAGE_NAME: ghcr.io/${{ github.repository }}:${{ github.sha }}
+      REGISTRY: cr.selcloud.ru
+      IMAGE_NAME: cr.selcloud.ru/${{ github.repository }}:${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
       - name: Add package repository
