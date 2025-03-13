@@ -16,6 +16,7 @@ COPY prisma/schema.prisma ./prisma/schema.prisma
 EXPOSE 80
 
 RUN ["npm", "ci", "--include=dev"]
+RUN ["npx", "prisma", "generate"]
 RUN ["npm", "run", "build"]
 
 FROM node:22.14.0
