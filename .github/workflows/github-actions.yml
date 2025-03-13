@@ -34,8 +34,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Add package repository
         uses: actions/setup-node@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: token
+          password: CRgAAAAAZSoV3DqNwT5f65ZM1SNMgYUwT5jIcuO4
       - name: Run Docker container
         run: |
-          docker run -d -p 8080:80 --name my-container ${{ env.IMAGE_NAME }}:latest
+          docker run -d -p 8080:80 --name danocher/es365-back ${{ env.IMAGE_NAME }}:latest
           echo "Container is running on port 8080"
        
