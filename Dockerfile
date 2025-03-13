@@ -26,7 +26,7 @@ ENV VERSION=$VERSION
 ENV NODE_ENV=$NODE_ENV
 
 WORKDIR /app
-COPY --from=builder /app/package.json /app/package-lock.json /app/.npmrc /app/nest-cli.json ./
+COPY --from=builder /app/package.json /app/package-lock.json /app/nest-cli.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
