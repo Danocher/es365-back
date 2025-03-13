@@ -3,33 +3,21 @@ on:
   push:
     branches: [ "master" ]
 jobs:
-    build: 
-      runs-on: [ es365, self-hosted]
+    deploy: 
+      runs-on: self-hosted
       env:
         IMAGE_NAME: es365-back
       steps:
-        - uses: actions/checkout@v4
-        - name: Add package repository
-          uses: actions/setup-node@v4
-        - name: Build and push Docker image
-          uses: docker/build-push-action@v5
-          with:
-            context: .
-            push: true
-            tags: ${{ env.IMAGE_NAME }}:latest
-    deploy:
-      runs-on: [ es365, self-hosted]
-      needs: build
-      env:
-        IMAGE_NAME: es365-back
-      steps:
-        - uses: actions/checkout@v4
-        - name: Add package repository
-          uses: actions/setup-node@v4
-        - name: Run Docker container
-          run: |
-            docker run -d -p 8080:80 --name my-container ${{ env.IMAGE_NAME }}:latest
-            echo "Container is running on port 8080"
+       - name: pull
+         run: git clone https://github.com/Danocher/es365-back.git
+       - name: Add package repository
+         uses: actions/setup-node@v4
+       - name: Install dependencies
+         run: npm ci
+       - name: Build
+         run: npm run build
+       - name: Deploy
+         run: npm run start
   # build:
   #   runs-on: [ es365, self-hosted]
   #   env:
