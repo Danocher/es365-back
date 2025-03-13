@@ -11,6 +11,7 @@ ENV NODE_ENV=$NODE_ENV
 
 WORKDIR /app
 COPY . /app
+COPY prisma/schema.prisma ./prisma/schema.prisma
 
 EXPOSE 80
 
