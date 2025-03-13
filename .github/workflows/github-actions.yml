@@ -4,7 +4,7 @@ on:
     branches: [ "master" ]
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: [ es365, self-hosted]
     env:
       IMAGE_NAME: es365-backend
     steps:
