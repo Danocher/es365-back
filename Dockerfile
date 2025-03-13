@@ -15,7 +15,7 @@ COPY . /app
 EXPOSE 80
 
 RUN ["npm", "i"]
-RUN ["npm", "run", "build"]
+RUN ["npx", "nest", "build"]
 
 FROM node:22.14.0
 
